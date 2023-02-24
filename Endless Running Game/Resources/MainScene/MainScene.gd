@@ -20,8 +20,9 @@ onready var env1: PackedScene = preload("res://Resources/Environment/Env1.tscn")
 onready var env2: PackedScene = preload("res://Resources/Environment/Env2.tscn")
 onready var env3: PackedScene = preload("res://Resources/Environment/Env3.tscn")
 onready var env4: PackedScene = preload("res://Resources/Environment/Env4.tscn")
+onready var env5: PackedScene = preload("res://Resources/Environment/Env5.tscn")
 
-onready var environments: Array = [env1, env2, env3, env4]
+onready var environments: Array = [env1, env2, env2, env3, env1, env2, env3, env5]
 
 func _ready():
 	shoot_timer.start()
@@ -32,34 +33,36 @@ func _process(delta):
 	if Input.is_action_just_pressed("jump") and is_start == false and player.health != 0:
 		is_start = true
 		score_timer.start()
+		$TutorialControl.hide()
 		
 	if is_start == true:
 		control.rect_position.x = $Position2D.position.x
+	
+	if is_start == true:
+		# Background Spawn
+		var backgrounds_node_size = backgrounds_node.get_child_count()
 		
-	# Background Spawn
-	var backgrounds_node_size = backgrounds_node.get_child_count()
-	
-	if player.position.x > backgrounds_node.get_child(backgrounds_node_size - 1).position.x:
-		var pos = backgrounds_node.get_child(backgrounds_node_size - 1).position
-#		environments_node.get_child(0).queue_free()
-		Global.instance_node(bg1, Vector2(pos.x + 3407, pos.y), backgrounds_node)
-	
-		if backgrounds_node.get_child_count() == 5:
-			backgrounds_node.get_child(0).queue_free()
-	
-	# Environments spawn
-	var environments_node_size = environments_node.get_child_count()
-	
-	if player.position.x > environments_node.get_child(environments_node_size - 1).position.x - 1000:
-		var pos = environments_node.get_child(environments_node_size - 1).position
+		if player.position.x > backgrounds_node.get_child(backgrounds_node_size - 1).position.x:
+			var pos = backgrounds_node.get_child(backgrounds_node_size - 1).position
+	#		environments_node.get_child(0).queue_free()
+			Global.instance_node(bg1, Vector2(pos.x + 3407, pos.y), backgrounds_node)
 		
-		randomize()
-		var rand_index:int = randi() % environments.size()
+			if backgrounds_node.get_child_count() == 5:
+				backgrounds_node.get_child(0).queue_free()
 		
-		Global.instance_node(environments[rand_index], Vector2(pos.x + rand_range(500, 520), pos.y), environments_node)
-	
-		if environments_node.get_child_count() == 6:
-			environments_node.get_child(0).queue_free()
+		# Environments spawn
+		var environments_node_size = environments_node.get_child_count()
+		
+		if player.position.x > environments_node.get_child(environments_node_size - 1).position.x - 1000:
+			var pos = environments_node.get_child(environments_node_size - 1).position
+			
+			randomize()
+			var rand_index:int = randi() % environments.size()
+			
+			Global.instance_node(environments[rand_index], Vector2(pos.x + rand_range(500, 520), pos.y), environments_node)
+		
+			if environments_node.get_child_count() == 6:
+				environments_node.get_child(0).queue_free()
 
 func _on_ShootTimer_timeout():
 	if is_start == true:

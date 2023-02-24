@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Resources/MainMenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Environments/cyberpunk-corridor-files/PNG/cyberpunk-corridor-PREVIEW.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Fonts/PressStart2P-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://FontData/Font1.tres" type="DynamicFont" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -37,5 +38,37 @@ margin_bottom = 19.0
 mouse_default_cursor_shape = 2
 custom_fonts/font = SubResource( 1 )
 text = "Play"
+
+[node name="HighScore" type="Label" parent="Control"]
+anchor_left = 0.331184
+anchor_top = 0.260417
+anchor_right = 0.668816
+anchor_bottom = 0.327083
+margin_left = -102.5
+margin_top = 145.833
+margin_right = -70.4999
+margin_bottom = 151.167
+custom_fonts/font = ExtResource( 4 )
+text = "HighScore:"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Title" type="Label" parent="Control"]
+anchor_left = 0.331184
+anchor_top = 0.260417
+anchor_right = 0.668816
+anchor_bottom = 0.327083
+margin_left = -182.5
+margin_top = 295.833
+margin_right = 201.5
+margin_bottom = 301.167
+custom_fonts/font = ExtResource( 4 )
+text = "Endless Running Game "
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [connection signal="pressed" from="Control/PlayButton" to="." method="_on_PlayButton_pressed"]

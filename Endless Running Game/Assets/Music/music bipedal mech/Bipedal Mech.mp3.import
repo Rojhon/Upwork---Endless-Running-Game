@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Bipedal Mech.mp3-a480407e6070efe6c6684dd01a0b95b4.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/music bipedal mech/Bipedal Mech.mp3"
+dest_files=[ "res://.import/Bipedal Mech.mp3-a480407e6070efe6c6684dd01a0b95b4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

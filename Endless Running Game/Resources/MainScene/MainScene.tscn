@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Resources/MainScene/MainScene.gd" type="Script" id=1]
 [ext_resource path="res://Resources/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Resources/Environment/Env3.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Environments/cyberpunk-corridor-files/PNG/cyberpunk-corridor-PREVIEW.png" type="Texture" id=4]
 [ext_resource path="res://FontData/Font1.tres" type="DynamicFont" id=5]
+[ext_resource path="res://Assets/Music/music bipedal mech/Bipedal Mech.wav" type="AudioStream" id=6]
 [ext_resource path="res://Resources/MainScene/Position.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -49,7 +50,7 @@ __meta__ = {
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.4
 autostart = true
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -64,7 +65,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Area2D" type="Area2D" parent="Control" groups=["Fall"]]
+[node name="Area2D" type="Area2D" parent="Control" groups=["GameOver"]]
 position = Vector2( 287, 580 )
 __meta__ = {
 "_edit_group_": true
@@ -96,6 +97,10 @@ anchor_bottom = 1.0
 modulate = Color( 0, 0, 0, 0.509804 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -1500.0
+margin_top = -1500.0
+margin_right = 647.0
+margin_bottom = 1020.0
 
 [node name="Game Over" type="Label" parent="Control/GameOverScreen"]
 anchor_left = 0.331184
@@ -152,6 +157,10 @@ text = "Play Again"
 [node name="Position2D" type="Position2D" parent="."]
 script = ExtResource( 7 )
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Position2D"]
+stream = ExtResource( 6 )
+autoplay = true
+
 [node name="Camera2D" type="Camera2D" parent="Position2D"]
 position = Vector2( 125, 255 )
 scale = Vector2( 2, 2 )
@@ -162,7 +171,7 @@ limit_left = -500
 limit_top = 0
 limit_bottom = 0
 
-[node name="Area2D" type="Area2D" parent="Position2D" groups=["Fall"]]
+[node name="Area2D" type="Area2D" parent="Position2D" groups=["GameOver"]]
 position = Vector2( -157, 72 )
 __meta__ = {
 "_edit_group_": true
@@ -171,6 +180,25 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Position2D/Area2D"]
 position = Vector2( 118, 177 )
 shape = SubResource( 3 )
+
+[node name="TutorialControl" type="Control" parent="."]
+margin_right = 853.0
+margin_bottom = 480.0
+
+[node name="Tutorial" type="Label" parent="TutorialControl"]
+anchor_left = 0.499414
+anchor_top = 0.222917
+anchor_right = 0.87456
+anchor_bottom = 0.3625
+custom_fonts/font = ExtResource( 5 )
+text = "Click to
+  Play"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": true
+}
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

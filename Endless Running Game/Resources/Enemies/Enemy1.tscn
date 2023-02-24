@@ -1,0 +1,142 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://Assets/SpaceMarines/space-marine-jump.png" type="Texture" id=1]
+[ext_resource path="res://Assets/SpaceMarines/space-marine-run.png" type="Texture" id=2]
+[ext_resource path="res://Assets/SpaceMarines/space-marine-idle.png" type="Texture" id=3]
+[ext_resource path="res://Resources/Enemies/Enemy1.gd" type="Script" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 36, 33 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 36, 0, 36, 33 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 72, 0, 36, 33 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 108, 0, 36, 33 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 144, 0, 36, 33 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 180, 0, 36, 33 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 240, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 288, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 336, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 432, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 480, 0, 48, 48 )
+
+[sub_resource type="SpriteFrames" id=22]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"loop": true,
+"name": "run",
+"speed": 30.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=23]
+extents = Vector2( 10, 19 )
+
+[sub_resource type="RectangleShape2D" id=24]
+extents = Vector2( 11, 18.75 )
+
+[node name="Enemy1" type="KinematicBody2D"]
+modulate = Color( 0.172549, 1, 0, 1 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 22 )
+frame = 3
+playing = true
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 14.5, 5.5 )
+shape = SubResource( 23 )
+
+[node name="Ditection" type="Area2D" parent="." groups=["Enemy", "GameOver"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ditection" groups=["GameOver"]]
+position = Vector2( 10, 6 )
+shape = SubResource( 24 )
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="area_entered" from="Ditection" to="." method="_on_Ditection_area_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]

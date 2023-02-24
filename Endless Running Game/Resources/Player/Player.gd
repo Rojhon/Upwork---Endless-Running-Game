@@ -16,8 +16,11 @@ func _process(delta):
 	if health == 0 and main_scene.is_start == true:
 		main_scene.is_start = false
 		visible = false
+		
+		Global.save_highscore(Global.score)
+		
 		main_scene.get_node("Control/GameOverScreen/Score").text += " " + str(Global.score)
-		main_scene.get_node("Control/GameOverScreen/HighScore").text += " " + str(Global.score)
+		main_scene.get_node("Control/GameOverScreen/HighScore").text += " " + str(Global.highscore)
 		main_scene.get_node("Control/GameOverScreen").show()
 
 func _physics_process(delta):
@@ -38,6 +41,5 @@ func _physics_process(delta):
 			animated_sprite.play("run")
 
 func _on_Ditection_area_entered(area):
-	if area.is_in_group("Fall"):
-		print("Fall")
+	if area.is_in_group("GameOver"):
 		health = 0
